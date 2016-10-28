@@ -1,0 +1,50 @@
+Income
+
+Min: 10.35	Max: 186.6	Range: 176.3
+Median: 33.12	First Q: 21.01	Third Q: 57.47	IQR: 36.46
+Mean: 45.22	SD: 35.24
+
+Limit
+
+Min: 855	Max: 13910	Range: 13060
+Median: 4622	First Q: 3088	Third Q: 5873	IQR: 2785
+Mean: 4736	SD: 2308
+
+Rating
+
+Min: 93	Max: 982	Range: 889
+Median: 344	First Q: 247.2	Third Q: 437.2	IQR: 190
+Mean: 354.9	SD: 154.7
+
+Cards
+
+Min: 1	Max: 9	Range: 8
+Median: 3	First Q: 2	Third Q: 4	IQR: 2
+Mean: 2.958	SD: 1.371
+
+Age
+
+Min: 23	Max: 98	Range: 75
+Median: 56	First Q: 41.75	Third Q: 70	IQR: 28.25
+Mean: 55.67	SD: 17.25
+
+Education
+
+Min: 5	Max: 20	Range: 15
+Median: 14	First Q: 11	Third Q: 16	IQR: 5
+Mean: 13.45	SD: 3.125
+
+Gender
+
+Student
+
+Married
+
+Ethnicity
+
+Balance
+
+Min: 0	Max: 1999	Range: 1999
+Median: 459.5	First Q: 68.75	Third Q: 863	IQR: 794.2
+Mean: 520	SD: 459.8
+

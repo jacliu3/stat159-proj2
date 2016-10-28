@@ -1,9 +1,15 @@
+library(ggplot2)
+
 credit.data <- read.csv("data/Credit.csv")
 credit.data$X <- NULL
+names(credit.data) <- tolower(names(credit.data))
+
+sink(file="data/eda-output.txt")
+sink()
 
 for (col.name in names(credit.data)) {
   sink(file="data/eda-output.txt", append=TRUE)
-  cat(col.name, "\n\n", sep="")
+  cat(toupper(col.name), "\n\n", sep="")
   sink()
   temp.data <- credit.data[, col.name]
   if (is.numeric(temp.data)) {
@@ -18,5 +24,11 @@ for (col.name in names(credit.data)) {
     cat("Mean: ", signif(mean(temp.data), digits=4), "\t", sep="")
     cat("SD: ", signif(sd(temp.data), digits=4), "\n\n", sep="")
     sink()
+    
+    temp.plot <- ggplot(data.frame(col=temp.data)) + geom_histogram(aes(x=col)) + xlab(col.name)
+    ggsave(filename=paste0("images/", col.name, "-hist.png"), plot=temp.plot)
+    
+    temp.plot <- ggplot(data.frame(col=temp.data)) + geom_boxplot(aes(y=col, x=1)) + coord_flip() + ylab(col.name)
+    ggsave(filename=paste0("images/", col.name, "-boxplot.png"), plot=temp.plot)
   }
 }

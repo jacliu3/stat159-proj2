@@ -1,0 +1,18 @@
+Best Number of Components: 9 
+Test MSE: 0.0895323 
+Official coefficients: 
+, , 9 comps
+
+                              y
+Income             -0.598137940
+Limit               0.957819003
+Rating              0.383140840
+Cards               0.052269035
+Age                -0.023401547
+Education          -0.007590278
+GenderFemale       -0.011926799
+StudentYes          0.278181378
+MarriedYes         -0.008649141
+EthnicityAsian      0.015944759
+EthnicityCaucasian  0.011062746
+

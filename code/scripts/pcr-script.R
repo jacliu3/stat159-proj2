@@ -1,40 +1,41 @@
 library(pls)
-#set seed to project default
+
+# Set seed to project default
 set.seed(123)
 
-#load scaled credit data and test/train vectors
-scaled = read.csv('data/scaled-credit.csv', header=T)
-load('data/test-train-vectors.RData')
+# Load scaled credit data and test/train vectors
+scaled <- read.csv('data/scaled-credit.csv', header  = T)
+load('data/test-train-vectors.Rdata')
 
-x = as.matrix(scaled[,2:(ncol(scaled)-1)])
-y = scaled$Balance
+x <- as.matrix(scaled[ , 2:(ncol(scaled)-1)])
+y <- scaled$Balance
 
-#fit various models by cross-validation
-fit = pcr(y[train] ~ x[train,], validation="CV")
-save(fit, file="data/pcr-cv-models.RData")
+# Fit various models by cross-validation
+pcr.cv.fit <- pcr(y[train] ~ x[train,], validation  = "CV")
+save(pcr.cv.fit, file  = "data/pcr-cv-models.RData")
 
-#extract the best param
-best_param = min(fit$validation$PRESS)
+# Extract the best ncomp
+best.ncomp <- which.min(pcr.cv.fit$validation$PRESS)
 
-#plot cross-validation errors
-png("images/scatterplot-pcr.png")
-validationplot(fit, val.type="MSEP", main="Scatter Plot for PCR")
+# Plot cross-validation errors
+png("images/pcr-scatterplot.png")
+validationplot(pcr.cv.fit, val.type  = "MSEP", main  = "Scatter Plot for PCR")
 dev.off()
 
-#generate best model to compute test MSE for test set
-predictions = predict(fit, newdata=x[test,], comps=1:11)
-error = mean((predictions-y[test])^2)
+# Generate best model to compute test MSE for test set
+predictions <- predict(pcr.cv.fit, newdata  = x[test,], ncomp = best.ncomp)
+error <- mean((predictions-y[test])^2)
 
-#fit full model
-fit = pcr(y ~ x, comps=1:11)
+# Fit full model
+pcr.fit <- pcr(y ~ x, ncomp = best.ncomp)
 
-#output primary results to text file
+# Output primary results to text file
 sink("data/pcr-results.txt")
-cat("Best Param:", best_param, "\n")
+cat("Best Num of Components:", best.ncomp, "\n")
 cat("Test MSE:", error, "\n")
-cat("Official coefficients", "\n")
-coef(fit)
+cat("Official coefficients:", "\n")
+print(coef(pcr.fit))
 sink()
 
-#save official coefficients, best param and test set MSE to RData file
-save(fit, best_param, error, file="data/pcr-best-results.RData")
+# Save official model, best ncomp and test set MSE to RData file
+save(pcr.fit, best.ncomp, error, file  = "data/pcr-results.RData")

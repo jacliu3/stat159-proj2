@@ -14,9 +14,36 @@ y <- scaled$Balance
 
 # Tune hyperparameter by cross-validation
 grid <- 10^seq(10, -10, length  =  100)
-fit <- cv.glmnet(x[train,], y[train], alpha = 1, intercept = FALSE,
+lasso.cv.fit <- cv.glmnet(x[train,], y[train], alpha = 1, intercept = FALSE,
                  standardize = FALSE, lambda = grid)
-save(fit, file = "data/lassoregression-cv-models.RData")
+save(lasso.cv.fit, file = "data/lassoregression-cv-models.RData")
 
 # Extract the best lambda
-best.lambda <- fit$lambda.min
+best.lambda <- lasso.cv.fit$lambda.min
+
+# Plot cross-validation errors in terms of lambda
+png("images/lasso-scatter.png")
+plot(lasso.cv.fit)
+dev.off()
+
+# Generate best model to calculate test set MSE
+best.fit <- glmnet(x[train,], y[train], alpha = 0, intercept = FALSE,
+                   standardize = FALSE, lambda = best.lambda)
+predictions <- predict(best.fit, s = best.lambda, newx = x[test,])
+error <- mean((predictions-y[test])^2)
+
+# Fit full model using best lambda
+lasso.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
+              lambda = best.lambda)
+
+# Output primary results to text file
+sink("data/lasso-results.txt")
+
+cat("Best Lambda:", best.lambda, "\n")
+cat("Test MSE:", error, "\n")
+cat("Official coefficients", "\n")
+coef(lasso.fit)
+sink()
+
+# Save model, label, and test MSE
+save(lasso.fit, best.lambda, error, file = "data/lassoregression-results.RData")

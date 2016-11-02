@@ -36,11 +36,43 @@ Mean: 13.45	SD: 3.125
 
 GENDER
 
+Counts:
+  Male Female 
+   193    207 
+
+Proportions:
+  Male Female 
+  0.48   0.52 
+
 STUDENT
+
+Counts:
+ No Yes 
+360  40 
+
+Proportions:
+ No Yes 
+0.9 0.1 
 
 MARRIED
 
+Counts:
+ No Yes 
+155 245 
+
+Proportions:
+  No  Yes 
+0.39 0.61 
+
 ETHNICITY
+
+Counts:
+African American            Asian        Caucasian 
+              99              102              199 
+
+Proportions:
+African American            Asian        Caucasian 
+            0.25             0.26             0.50 
 
 BALANCE
 

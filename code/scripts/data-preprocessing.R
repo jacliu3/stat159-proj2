@@ -13,4 +13,4 @@ scaled.data <- scale(credit.data)
 write.csv(scaled.data, file="data/scaled-credit.csv")
 train <- sample(1:400, 300)
 test <- (1:400)[-train]
-save(train, test, file="data/test-train-vectors.csv")
+save(train, test, file="data/test-train-vectors.Rdata")

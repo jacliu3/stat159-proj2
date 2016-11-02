@@ -16,7 +16,7 @@ y <- scaled$Balance
 grid <- 10^seq(10, -10, length  =  100)
 lasso.cv.fit <- cv.glmnet(x[train,], y[train], alpha = 1, intercept = FALSE,
                  standardize = FALSE, lambda = grid)
-save(lasso.cv.fit, file = "data/lassoregression-cv-models.RData")
+save(lasso.cv.fit, file = "data/lasso-cv-models.RData")
 
 # Extract the best lambda
 best.lambda <- lasso.cv.fit$lambda.min
@@ -26,11 +26,9 @@ png("images/lasso-scatter.png")
 plot(lasso.cv.fit)
 dev.off()
 
-# Generate best model to calculate test set MSE
-best.fit <- glmnet(x[train,], y[train], alpha = 0, intercept = FALSE,
-                   standardize = FALSE, lambda = best.lambda)
-predictions <- predict(best.fit, s = best.lambda, newx = x[test,])
-error <- mean((predictions-y[test])^2)
+# Calculate MSE of test set
+predictions <- predict(lasso.cv.fit, s = best.lambda, newx = x[test,])
+error <- mean((predictions - y[test])^2)
 
 # Fit full model using best lambda
 lasso.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
@@ -38,7 +36,6 @@ lasso.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
 
 # Output primary results to text file
 sink("data/lasso-results.txt")
-
 cat("Best Lambda:", best.lambda, "\n")
 cat("Test MSE:", error, "\n")
 cat("Official coefficients", "\n")

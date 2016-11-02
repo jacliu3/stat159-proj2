@@ -6,7 +6,8 @@ set.seed(123)
 scaled = read.csv('data/scaled-credit.csv', header=T)
 load('data/test-train-vectors.RData')
 
-x = as.matrix(scaled[,2:(ncol(scaled)-1)])
+#dummy out categorical variables
+x = model.matrix(Balance~., scaled)[,-1]
 y = scaled$Balance
 
 #fit various models with different lambdas by cross-validation

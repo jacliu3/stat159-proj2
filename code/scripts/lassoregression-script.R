@@ -22,7 +22,7 @@ save(lasso.cv.fit, file = "data/lasso-cv-models.RData")
 best.lambda <- lasso.cv.fit$lambda.min
 
 # Plot cross-validation errors in terms of lambda
-png("images/lasso-scatter.png")
+png("images/lasso-scatterplot.png")
 plot(lasso.cv.fit)
 dev.off()
 
@@ -43,4 +43,4 @@ coef(lasso.fit)
 sink()
 
 # Save model, label, and test MSE
-save(lasso.fit, best.lambda, error, file = "data/lassoregression-results.RData")
+save(lasso.fit, best.lambda, error, file = "data/lasso-results.RData")

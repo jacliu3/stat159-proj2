@@ -1,43 +1,44 @@
 library(glmnet)
-#set seed to project default
+
+# Set seed to project default
 set.seed(123)
 
-#load scaled credit data and test/train vectors
-scaled = read.csv('data/scaled-credit.csv', header=T)
+# Load scaled credit data and test/train vectors
+scaled <- read.csv('data/scaled-credit.csv', header = T)
 load('data/test-train-vectors.RData')
 
-#dummy out categorical variables
-x = model.matrix(Balance~., scaled)[,-1]
-y = scaled$Balance
+x <- as.matrix(scaled[ , 2:(ncol(scaled)-1)])
+y <- scaled$Balance
 
-#fit various models with different lambdas by cross-validation
-grid = 10^seq(10, -2, length = 100)
-fit = cv.glmnet(x[train,], y[train], alpha=0, intercept=FALSE, standardize=FALSE, lambda=grid)
-save(fit, file="data/ridgeregression-cv-models.RData")
+# Fit various models with different lambdas by cross-validation
+grid <- 10^seq(10, -10, length = 100)
+ridge.cv.fit <- cv.glmnet(x[train,], y[train], alpha = 0, intercept = FALSE,
+                         standardize = FALSE, lambda = grid)
+save(ridge.cv.fit, file = "data/ridge-cv-models.RData")
 
-#extract the best lambda of all the lambdas we've tried
-best_lambda = fit$lambda.min
+# Extract the best lambda of all the lambdas we've tried
+best.lambda <- ridge.cv.fit$lambda.min
 
-#plot cross-validation errors in terms of lambda
-png("images/scatterplot-ridgeregression.png")
-plot(fit)
+# Plot cross-validation errors in terms of lambda
+png("images/ridge-scatterplot.png")
+plot(ridge.cv.fit)
 dev.off()
 
-#generate best model to compute test MSE for test set
-best_fit = glmnet(x[train,], y[train], alpha=0, standardize=FALSE, lambda=best_lambda)
-predictions = predict(best_fit, s=best_lambda, newx=x[test,])
-error = mean((predictions-y[test])^2)
+# Compute test MSE on best model
+predictions <- predict(ridge.cv.fit, s = best.lambda, newx = x[test,])
+error <- mean((predictions - y[test])^2)
 
-#fit full model using best lambda
-fit = glmnet(x, y, alpha=0, standardize=FALSE, lambda=best_lambda)
+# Fit full model using best lambda
+ridge.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
+              lambda = best.lambda)
 
-#output primary results to text file
-sink("data/ridgeregression-results.txt")
-cat("Best Lambda:", best_lambda, "\n")
+# Output primary results to text file
+sink("data/ridge-results.txt")
+cat("Best Lambda:", best.lambda, "\n")
 cat("Test MSE:", error, "\n")
-cat("Official coefficients", "\n")
-coef(fit)
+cat("Official coefficients:", "\n")
+print(coef(ridge.fit))
 sink()
 
-#save official coefficients, best lambda and test set MSE to RData file
-save(fit, best_lambda, error, file="data/ridgeregression-best-results.RData")
+# Save official model, best lambda and test set MSE to RData file
+save(ridge.fit, best.lambda, error, file = "data/ridge-results.RData")

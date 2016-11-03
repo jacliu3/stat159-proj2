@@ -1,0 +1,10 @@
+---
+title: "Project 2: Predictive Modeling Process"
+author: "Steven Chen, Jacqueline Liu"
+date: "Nov 4th, 2016"
+---
+
+Abstract
+________
+
+This paper will go through several different types of linear regression models that are good alternatives to the standard simple linear model. The different regression models utilizes different fitting method, as oppose to using Ordinary Least Squares (OLS) in the simple and multiple linear regression. A similar explanation can be found in Chapter 6, _Linear Model Selection and Regularization_, of the book [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) by James et al. After reading, one can easily follow the same steps and achieve reproducible results.

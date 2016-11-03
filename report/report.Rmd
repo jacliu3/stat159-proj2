@@ -1,0 +1,31 @@
+---
+title: "Predictive Modeling"
+author: "Jacqueline Liu, Steven Chen"
+date: "November 1, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+```{r child = 'abstract.Rmd'}
+```
+
+```{r child = 'introduction.Rmd'}
+```
+
+```{r child = 'data.Rmd'}
+```
+
+```{r child = 'methods.Rmd'}
+```
+
+```{r child = 'analysis.Rmd'}
+```
+
+```{r child = 'results.Rmd'}
+```
+
+```{r child = 'conclusion.Rmd'}
+```

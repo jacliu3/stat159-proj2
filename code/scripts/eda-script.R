@@ -1,4 +1,5 @@
 library(ggplot2)
+library(corrplot)
 
 # Read data
 credit.data <- read.csv("data/Credit.csv")
@@ -32,11 +33,12 @@ for (col.name in names(credit.data)) {
     
     # Histograms and boxplots
     temp.plot <- ggplot(data.frame(col = temp.data)) + xlab(col.name) +
-                 geom_histogram(aes(x = col))
+                 geom_histogram(aes(x = col)) + ggtitle(paste(col.name, "histogram"))
     ggsave(filename = paste0("images/", col.name, "-hist.png"), plot = temp.plot)
     
     temp.plot <- ggplot(data.frame(col = temp.data)) + coord_flip() +
-                  ylab(col.name) + geom_boxplot(aes(y = col, x = 1))
+                  ylab(col.name) + geom_boxplot(aes(y = col, x = 1)) + 
+                  ggtitle(paste(col.name, "boxplot"))
     ggsave(filename = paste0("images/", col.name, "-boxplot.png"), plot = temp.plot)
   } else {
     
@@ -54,42 +56,67 @@ for (col.name in names(credit.data)) {
   }
 }
 
-quantitativeVariables = c(colnames(credit.data)[1:6], 'balance')
-qualitativeVariables = colnames(credit.data)[7:11]
-correlations = cor(credit.data[quantitativeVariables])
+quantitativeVariables <- c(colnames(credit.data)[1:6], 'balance')
+qualitativeVariables <- colnames(credit.data)[7:11]
+
+# Correlation matrix amongst quantitative variables
+correlations <- cor(credit.data[quantitativeVariables])
 sink(file = "data/eda-output.txt", append = TRUE)
-cat("Correlation Matrix\n")
-correlations
+cat("CORRELATION MATRIX\n\n")
+print(round(correlations, digits = 3))
 cat("\n")
 sink()
 
+png('images/correlation-matrix.png')
+corrplot(correlations, method="shade", main = "Correlation Matrix")
+dev.off()
+
+# Scatterplot matrix of all variables
 png('images/scatterplot-matrix.png')
-pairs(~income+limit+rating+cards+age+education+balance, data=credit.data[quantitativeVariables], main = 'Scatterplot Matrix', cex=0.5)
+pairs(~ income + limit + rating + cards + age + education + balance, 
+      data = credit.data[quantitativeVariables], main = 'Scatterplot Matrix', cex=0.5)
 dev.off()
 
-allQualitative = aov(balance~gender+student+married+ethnicity, data=credit.data[qualitativeVariables])
+# ANOVA of balance and all qualitative variables
+allQualitative <- aov(balance ~ gender + student + married + ethnicity,
+                      data = credit.data[qualitativeVariables])
+sink(file = "data/eda-output.txt", append = TRUE)
+cat("ANOVA:\n")
+print(allQualitative)
+cat("\n")
+sink()
 
-male = credit.data$balance[credit.data$gender != "Male"]
-female = credit.data$balance[credit.data$gender == "Female"]
-png("images/boxplot-balance-gender.png")
-boxplot(male, female, names=c("Male", "Female"), main="Balance Conditioned on Gender")
+# Boxplots of Balance conditions on values of qualitative variables
+# Gender
+male <- credit.data$balance[credit.data$gender != "Male"]
+female <- credit.data$balance[credit.data$gender == "Female"]
+png("images/gender-balance-boxplot.png")
+boxplot(male, female, names = c("Male", "Female"),
+        main = "Balance Conditioned on Gender")
 dev.off()
 
-asian = credit.data$balance[credit.data$ethnicity == "Asian"]
-caucasian = credit.data$balance[credit.data$ethnicity == "Caucasian"]
-africanamerican = credit.data$balance[credit.data$ethnicity == "African American"]
-png("images/boxplot-balance-ethnicity.png")
-boxplot(asian, caucasian, africanamerican, names=c("Asian", "Caucasian", "African American"), main="Balance Conditioned on Ethnicity")
+# Ethnicity
+asian <- credit.data$balance[credit.data$ethnicity == "Asian"]
+caucasian <- credit.data$balance[credit.data$ethnicity == "Caucasian"]
+africanamerican <- credit.data$balance[credit.data$ethnicity == "African American"]
+png("images/ethnicity-balance-boxplot.png")
+boxplot(asian, caucasian, africanamerican, 
+        names = c("Asian", "Caucasian", "African American"),
+        main = "Balance Conditioned on Ethnicity")
 dev.off()
 
-student = credit.data$balance[credit.data$student == "Yes"]
-nonstudent = credit.data$balance[credit.data$student == "No"]
-png("images/boxplot-balance-student.png")
-boxplot(student, nonstudent, names=c("Student", "Nonstudent"), main="Balance Conditioned on Student")
+# Student status
+student <- credit.data$balance[credit.data$student == "Yes"]
+nonstudent <- credit.data$balance[credit.data$student == "No"]
+png("images/student-balance-boxplot.png")
+boxplot(student, nonstudent, names = c("Student", "Nonstudent"),
+        main = "Balance Conditioned on Student")
 dev.off()
 
-married = credit.data$balance[credit.data$married == "Yes"]
-nonmarried = credit.data$balance[credit.data$married == "No"]
-png("images/boxplot-balance-married.png")
-boxplot(married, nonmarried, names=c("Married", "Nonmarried"), main="Balance Conditioned on Marital Status")
+# Marital status
+married <- credit.data$balance[credit.data$married == "Yes"]
+nonmarried <- credit.data$balance[credit.data$married == "No"]
+png("images/married-balance-boxplot.png")
+boxplot(married, nonmarried, names = c("Married", "Nonmarried"),
+        main = "Balance Conditioned on Marital Status")
 dev.off()

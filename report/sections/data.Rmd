@@ -1,4 +1,4 @@
-Data
+###Data
 ____
 
 The primary data set we are using is [Credit](http://www-bcf.usc.edu/~gareth/ISL/Credit.csv), which contains 400 bank customers and their personal information. _Balance_, which states the current balance of the customer, is used as an dependent variable and the rest is used as predictor variables, which includes:

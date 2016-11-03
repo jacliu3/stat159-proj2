@@ -39,7 +39,7 @@ sink("data/lasso-results.txt")
 cat("Best Lambda:", best.lambda, "\n")
 cat("Test MSE:", error, "\n")
 cat("Official coefficients", "\n")
-coef(lasso.fit)
+print(coef(lasso.fit))
 sink()
 
 # Save model, label, and test MSE

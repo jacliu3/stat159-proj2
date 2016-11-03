@@ -1,0 +1,17 @@
+Best Lambda: 0.0004641589 
+Test MSE: 0.04568886 
+Official coefficients 
+12 x 1 sparse Matrix of class "dgCMatrix"
+                             s0
+(Intercept)         .          
+Income             -0.597033614
+Limit               0.966182751
+Rating              0.373666258
+Cards               0.053252056
+Age                -0.023114926
+Education          -0.007490243
+GenderFemale       -0.011553999
+StudentYes          0.278045221
+MarriedYes         -0.009012013
+EthnicityAsian      0.015885149
+EthnicityCaucasian  0.010994801

@@ -80,3 +80,27 @@ Min: 0	Max: 1999	Range: 1999
 Median: 459.5	First Q: 68.75	Third Q: 863	IQR: 794.2
 Mean: 520	SD: 459.8
 
+CORRELATION MATRIX
+
+          income  limit rating  cards   age education balance
+income     1.000  0.792  0.791 -0.018 0.175    -0.028   0.464
+limit      0.792  1.000  0.997  0.010 0.101    -0.024   0.862
+rating     0.791  0.997  1.000  0.053 0.103    -0.030   0.864
+cards     -0.018  0.010  0.053  1.000 0.043    -0.051   0.086
+age        0.175  0.101  0.103  0.043 1.000     0.004   0.002
+education -0.028 -0.024 -0.030 -0.051 0.004     1.000  -0.008
+balance    0.464  0.862  0.864  0.086 0.002    -0.008   1.000
+
+ANOVA:
+Call:
+   aov(formula = balance ~ gender + student + married + ethnicity, 
+    data = credit.data[qualitativeVariables])
+
+Terms:
+                  gender  student  married ethnicity Residuals
+Sum of Squares     38892  5623889    16976     58038  78602117
+Deg. of Freedom        1        1        1         2       394
+
+Residual standard error: 446.6517
+Estimated effects may be unbalanced
+

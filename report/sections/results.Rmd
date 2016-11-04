@@ -1,0 +1,21 @@
+
+```{r}
+load("../../data/ols-results.Rdata")
+load("../../data/ridge-results.Rdata")
+load("../../data/lasso-results.Rdata")
+load("../../data/pcr-results.Rdata")
+load("../../data/plsr-results.Rdata")
+coeffs <- data.frame(ols.fit$coefficients)
+coeffs <- transform(merge(coeffs, as.matrix(ridge.fit$beta), by = 0, all = TRUE),
+                    row.names = Row.names, Row.names = NULL)
+coeffs <- transform(merge(coeffs, as.matrix(lasso.fit$beta), by = 0, all = TRUE),
+                    row.names = Row.names, Row.names = NULL)
+coeffs <- transform(merge(coeffs, pcr.fit$coefficients[ , , pcr.best.ncomp],
+                          by = 0, all = TRUE),
+                    row.names = Row.names, Row.names = NULL)
+coeffs <- transform(merge(coeffs, plsr.fit$coefficients[ , , plsr.best.ncomp],
+                          by = 0, all = TRUE),
+                    row.names = Row.names, Row.names = NULL)
+names(coeffs) <- c("ols", "ridge", "lasso", "pcr", "plsr")
+
+```

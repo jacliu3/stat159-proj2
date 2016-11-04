@@ -9,23 +9,23 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 
-```{r child = 'abstract.Rmd'}
+```{r child = 'sections/abstract.Rmd'}
 ```
 
-```{r child = 'introduction.Rmd'}
+```{r child = 'sections/introduction.Rmd'}
 ```
 
-```{r child = 'data.Rmd'}
+```{r child = 'sections/data.Rmd'}
 ```
 
-```{r child = 'methods.Rmd'}
+```{r child = 'sections/methods.Rmd'}
 ```
 
-```{r child = 'analysis.Rmd'}
+```{r child = 'sections/analysis.Rmd'}
 ```
 
-```{r child = 'results.Rmd'}
+```{r child = 'sections/results.Rmd'}
 ```
 
-```{r child = 'conclusion.Rmd'}
+```{r child = 'sections/conclusions.Rmd'}
 ```

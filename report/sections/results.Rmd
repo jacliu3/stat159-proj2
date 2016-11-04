@@ -1,3 +1,4 @@
+##Results
 
 ```{r}
 load("../../data/ols-results.Rdata")
@@ -5,6 +6,9 @@ load("../../data/ridge-results.Rdata")
 load("../../data/lasso-results.Rdata")
 load("../../data/pcr-results.Rdata")
 load("../../data/plsr-results.Rdata")
+```
+After performing 10-fold cross-validation on all regression methods, the tuning parameters were chosen on the models with the smallest MSE. Ridge regression had a shrinkage paramater of $`r ridge.best.lambda`$, while lasso used $`r lasso.best.lambda`$. In principal components analysis, the best number of components was `r pcr.best.ncomp`, while in partial least square regression, it was `r plsr.best.ncomp`. After the models, with these optimal parameters, were fitted on the entire dataset, the following coefficients were calculated:
+```{r, results='asis'}
 coeffs <- data.frame(ols.fit$coefficients)
 coeffs <- transform(merge(coeffs, as.matrix(ridge.fit$beta), by = 0, all = TRUE),
                     row.names = Row.names, Row.names = NULL)
@@ -17,5 +21,29 @@ coeffs <- transform(merge(coeffs, plsr.fit$coefficients[ , , plsr.best.ncomp],
                           by = 0, all = TRUE),
                     row.names = Row.names, Row.names = NULL)
 names(coeffs) <- c("ols", "ridge", "lasso", "pcr", "plsr")
-
+xtable(coeffs, caption = "Coefficients of all regression models", digits = 4)
 ```
+
+Just looking at the raw numbers, the coefficients look very similar; a majority are the same or don't differ until the fourth decimal place. This is also seen in the following graph:
+
+```{r}
+temp <- coeffs
+temp$index <- 1:nrow(coeffs)
+temp <- melt(temp, id = "index")
+names(temp) <- c("index", "method", "value")
+ggplot(data = temp, aes(x = index, y = value, colour = method)) + 
+       geom_point() + geom_line() + xlab("Coefficients") + 
+       ggtitle("Coefficients by Regression Method")
+```
+
+
+To compare the models, the mean-squared error for each were as follows:
+
+```{r, results = 'asis'}
+error.table <- data.frame(MSE=c(mean(ols.sum$residuals^2), ridge.error,
+                                lasso.error, pcr.error, plsr.error))
+rownames(error.table) <- c("ols", "ridge", "lasso", "pcr", "plsr")
+xtable(error.table, caption = "Mean-squared error of all regression models")
+```
+
+---

@@ -1,12 +1,21 @@
 ---
 title: "Predictive Modeling"
 author: "Jacqueline Liu, Steven Chen"
-date: "November 1, 2016"
+date: "November 4, 2016"
 output: pdf_document
+header-includes:
+- \usepackage{float}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+library(glmnet)
+library(pls)
+library(xtable)
+library(reshape2)
+library(ggplot2)
+options(xtable.comment = FALSE,
+        xtable.table.placement="H")
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 ```{r child = 'sections/abstract.Rmd'}

@@ -19,7 +19,7 @@ lasso.cv.fit <- cv.glmnet(x[train,], y[train], alpha = 1, intercept = FALSE,
 save(lasso.cv.fit, file = "data/lasso-cv-models.RData")
 
 # Extract the best lambda
-best.lambda <- lasso.cv.fit$lambda.min
+lasso.best.lambda <- lasso.cv.fit$lambda.min
 
 # Plot cross-validation errors in terms of lambda
 png("images/lasso-scatterplot.png")
@@ -27,12 +27,12 @@ plot(lasso.cv.fit)
 dev.off()
 
 # Calculate MSE of test set
-predictions <- predict(lasso.cv.fit, s = best.lambda, newx = x[test,])
-error <- mean((predictions - y[test])^2)
+predictions <- predict(lasso.cv.fit, s = lasso.best.lambda, newx = x[test,])
+lasso.error <- mean((predictions - y[test])^2)
 
 # Fit full model using best lambda
 lasso.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
-              lambda = best.lambda)
+              lambda = lasso.best.lambda)
 
 # Output primary results to text file
 sink("data/lasso-results.txt")
@@ -43,4 +43,4 @@ print(coef(lasso.fit))
 sink()
 
 # Save model, label, and test MSE
-save(lasso.fit, best.lambda, error, file = "data/lasso-results.RData")
+save(lasso.fit, lasso.best.lambda, lasso.error, file = "data/lasso-results.RData")

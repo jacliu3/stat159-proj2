@@ -17,7 +17,7 @@ ridge.cv.fit <- cv.glmnet(x[train,], y[train], alpha = 0, intercept = FALSE,
 save(ridge.cv.fit, file = "data/ridge-cv-models.RData")
 
 # Extract the best lambda of all the lambdas we've tried
-best.lambda <- ridge.cv.fit$lambda.min
+ridge.best.lambda <- ridge.cv.fit$lambda.min
 
 # Plot cross-validation errors in terms of lambda
 png("images/ridge-scatterplot.png")
@@ -25,20 +25,20 @@ plot(ridge.cv.fit)
 dev.off()
 
 # Compute test MSE on best model
-predictions <- predict(ridge.cv.fit, s = best.lambda, newx = x[test,])
-error <- mean((predictions - y[test])^2)
+predictions <- predict(ridge.cv.fit, s = ridge.best.lambda, newx = x[test,])
+ridge.error <- mean((predictions - y[test])^2)
 
 # Fit full model using best lambda
 ridge.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
-              lambda = best.lambda)
+              lambda = ridge.best.lambda)
 
 # Output primary results to text file
 sink("data/ridge-results.txt")
-cat("Best Lambda:", best.lambda, "\n")
-cat("Test MSE:", error, "\n")
+cat("Best Lambda:", ridge.best.lambda, "\n")
+cat("Test MSE:", ridge.error, "\n")
 cat("Official coefficients:", "\n")
 print(coef(ridge.fit))
 sink()
 
 # Save official model, best lambda and test set MSE to RData file
-save(ridge.fit, best.lambda, error, file = "data/ridge-results.RData")
+save(ridge.fit, ridge.best.lambda, ridge.error, file = "data/ridge-results.RData")

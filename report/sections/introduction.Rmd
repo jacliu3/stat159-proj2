@@ -1,4 +1,4 @@
-###Introduction
+##Introduction
 ____________
 
 Previous we have explored different types of linear regression models, but all were utilizing Ordinary Least Squares method to fit the model. Thus, we want to try and see whether other fitting methods and models will give us better predictions. We will consider the following regression methods:

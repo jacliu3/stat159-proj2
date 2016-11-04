@@ -1,0 +1,41 @@
+##Analysis
+__________
+
+```{r,echo=FALSE,message=FALSE}
+library(glmnet)
+library(pls)
+```
+
+###Ridge Regression (RR)
+We fit the training data using cross-validation with many different value for the $\lambda$ parameter of ridge regression. Below is the plot of Mean Square Error (MSE) and $\lambda$ values during cross-validation. 
+
+```{r,echo=FALSE,message=FALSE,fig.width=3,fig.align='center'}
+load('../../data/ridge-results.RData')
+plot(ridge.fit, main = 'Cross-validation of Ridge')
+abline(v=best.lambda)
+print(best.lambda)
+```
+
+From the graph above, we choose the best $\lambda$, which is 0.01. We then fit a new model with the training set with $\lambda = 0.01$ and calculate the MSE using the test set, which is 0.04576186. 
+
+```{r,echo=FALSE, message=FALSE}
+load('../../data/ridge-results.RData')
+print(error)
+```
+
+###Principal Components Regression (PCR)
+We fit the training data using cross-validation with different value for the number of principal components of PCR. Below is the plot of Mean Square Error of Prediction (MSEP) and number of components during cross-validation. 
+
+```{r,echo=FALSE,message=FALSE,fig.width=3,fig.align='center'}
+load('../../data/pcr-results.RData')
+plot(pcr.fit, main = 'Cross-validation of PCR')
+abline(v=best.ncomp)
+print(best.ncomp)
+```
+
+From the graph above, we choose the best number of components, which is 11. We then fit a new model with the training set with number of component = 11 and calculate the MSE using the test set, which is 0.04625455. 
+
+```{r,echo=FALSE, message=FALSE}
+load('../../data/pcr-results.RData')
+print(error)
+```

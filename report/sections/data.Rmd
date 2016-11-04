@@ -1,0 +1,29 @@
+##Data
+____
+
+The primary data set we are using is [Credit](http://www-bcf.usc.edu/~gareth/ISL/Credit.csv), which contains 400 bank customers and their personal information. _Balance_, which states the current balance of the customer, is used as an dependent variable and the rest is used as predictor variables, which includes:
+
+- _Income_: a quantitative variable stating customer's income
+- _Limit_: a quantitative variable stating customer's credit limit
+- _Rating_: a quantitative variable stating customer's credit rating
+- _Cards_: a quantitative variable stating the number of cards that the customer has
+- _Age_: a quantitative variable stating customer's age
+- _Education_: a quantitative variable stating the number of years of education of the customer
+- _Gender_: a qualitative variable stating customer's gender
+- _Student_: a qualitative variable stating whether the customer is currently a student
+- _Married_: a qualitative variable stating the customer's marital status
+- _Ethnicity_: a qualitative variable stating customer's ethnicity
+
+We'll pick the best models with optimal parameters in predicting _Balance_ using the above variables.
+
+Before we get into the methods used and the analysis, let's do a preliminary analysis on the correlations between the quantitative variables.
+
+```{r, out.width = "500px", echo=FALSE}
+knitr::include_graphics("../images/correlation-matrix.png")
+```
+
+Based on the above correlation visualization, we can see that _Balance_, _Income_, _Limit_, and _Rating_ have quite strong correlations with each other. This might present a problem when we use these variables during linear regression. We can demonstrate the same relationships with the following scatterplot matrix as well.
+
+```{r, out.width = "500px", echo=FALSE}
+knitr::include_graphics("../images/scatterplot-matrix.png")
+```

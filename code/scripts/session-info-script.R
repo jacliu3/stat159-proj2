@@ -4,6 +4,11 @@ library(knitr)
 library(rmarkdown)
 library(xtable)
 library(ggplot2)
+library(glmnet)
+library(pls)
+library(reshape2)
+library(png)
+library(grid)
 
 
 sink("../../session-info.txt", append = TRUE)

@@ -17,13 +17,14 @@ We'll pick the best models with optimal parameters in predicting _Balance_ using
 
 Before we get into the regression methods used, let's do a preliminary analysis on the correlations between the quantitative variables.
 
-```{r, out.width = "500px", echo=FALSE}
+
+```{r, out.width = "400px", echo=FALSE, fig.cap = "Correlation Matrix"}
 knitr::include_graphics("../images/correlation-matrix.png")
 ```
 
-Based on the above correlation visualization, we can see that _Income_, _Limit_, and _Rating_ have strong correlations with each other. This might present a problem when we use these variables during linear regression, but they also have a strong correlation with _Balance_, suggesting these variables will be important for our predictions. On the other hand, we see there is little correlation between _Balance_ and _Cards_, _Age_, and _Education_, so we expect these to have a smaller weight in our final models. We can demonstrate the same relationships with the following scatterplot matrix as well.
+Based on the correlation visualization in Figure 1, we can see that _Income_, _Limit_, and _Rating_ have strong correlations with each other. This might present a problem when we use these variables during linear regression, but they also have a strong correlation with _Balance_, suggesting these variables will be important for our predictions. On the other hand, we see there is little correlation between _Balance_ and _Cards_, _Age_, and _Education_, so we expect these to have a smaller weight in our final models. We can demonstrate the same relationships with the following scatterplot matrix as well (see Figure 2).
 
-```{r, out.width = "500px", echo=FALSE}
+```{r, out.width = "500px", echo=FALSE, fig.cap = "Scatterplot Matrix"}
 knitr::include_graphics("../images/scatterplot-matrix.png")
 ```
 

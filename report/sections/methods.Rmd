@@ -1,5 +1,4 @@
 ##Methods
-_________
 
 ###Ordinary Least Square (OLS)
 Previous, we have predominantly used OLS to estimate the coefficients for a linear model, and the goal is to find the set of coefficients that will minimize the sum of the squares of the predicted values and the actual values of the dependent variable. The formula we want to minimize can be express as follows:
@@ -42,3 +41,5 @@ With lower dimension, we can lower the risk of overfitting our model. Since _M_ 
 Like all dimensionality reduction methods, the benefits of PLSR include reducing the chance of overfitting and lowering the dimensionality of the dataset. Unlike PCR, however, it is a _supervised_ learning method and uses that additional information to its advantage. Instead of choosing vectors that capture the most variablity in the features, it choose vectors that capture the most variability in both the features AND the response variable. The first PLS direction is chosen simply by taking the coefficients from simple linear regression, which are proportional to the correlations between the features and the response variable. The second PLS direction is then found by another linear re gression, this time on the residuals of the features regressed on the first direction.
 
 PLSR is very useful when the features are highly collinear or when there are more features than observations. Its weight matrix reflects the covariance between the features and the response variables, while the weight matrix of PCA reflects the covariance between features themselves. 
+
+---

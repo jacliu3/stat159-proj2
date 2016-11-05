@@ -19,7 +19,7 @@ save(plsr.cv.fit, file = "data/plsr-cv-models.RData")
 plsr.best.ncomp <- which.min(plsr.cv.fit$validation$PRESS)
 
 # Plot cross-validation errors
-png("images/scatterplot-plsr.png")
+png("images/plsr-scatterplot.png")
 validationplot(plsr.cv.fit, val.type = "MSEP", main = "Scatter Plot for PLSR")
 dev.off()
 

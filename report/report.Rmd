@@ -2,7 +2,9 @@
 title: "Predictive Modeling"
 author: "Jacqueline Liu, Steven Chen"
 date: "November 4, 2016"
-output: pdf_document
+output: 
+  pdf_document:
+    fig_caption: yes
 header-includes:
 - \usepackage{float}
 ---
@@ -13,9 +15,18 @@ library(pls)
 library(xtable)
 library(reshape2)
 library(ggplot2)
+library(png)
+library(grid)
+
 options(xtable.comment = FALSE,
         xtable.table.placement="H")
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+load("../data/ols-results.Rdata")
+load("../data/ridge-results.Rdata")
+load("../data/lasso-results.Rdata")
+load("../data/pcr-results.Rdata")
+load("../data/plsr-results.Rdata")
 ```
 
 ```{r child = 'sections/abstract.Rmd'}

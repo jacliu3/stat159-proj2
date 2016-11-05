@@ -1,0 +1,7 @@
+### Code
+
+In the `scripts` folder, there are different R scripts that generate the results of this report. `data-preprocessing` takes in the raw data from `data/Credit.csv` and mean-centers, scales, and (if appropriate) binarizes the columns. The transformed data is saved under `data/scaled-credit.csv`. The training and test sets are also generated, saved as a list of indices under `data/test-train-vectors.Rdata`. The `eda-script` produces the human-readable text output with summary statistics of each column, as well as correlations between quantitative variables, ANOVA results of qualitative variables, and various histograms, boxplots and other images. 
+
+The `ridgeregression-script.R`, `lassoregression-script.R`, `pcr-script.R`, and `plsr-script.R` generate the appropriate regression models after conducting 10-fold cross-validation. The cross-validated models are saved in `data/<model name>-cv-models.Rdata`, the final fitted model, tuning parameter value, and test error as both `data/<model name>-results.Rdata` and `data/<model name>-results.txt`, the latter being in human-readable format. 
+
+`session-info-script.R` outputs the session information about R. It is called on by the session-info.sh bash script. 

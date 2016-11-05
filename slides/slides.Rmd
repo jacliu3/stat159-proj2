@@ -73,6 +73,18 @@ Given 400 bank customers and their personal information, try to predict _Balance
 
 http://www-bcf.usc.edu/~gareth/ISL/Credit.csv
 
+## Dataset
+
+```{r, out.width = "500px", echo=FALSE, fig.align = "center", fig.cap = "Correlation Matrix"}
+knitr::include_graphics("../images/correlation-matrix.png")
+```
+
+## Model Results: Cross-Validation
+
+```{r, out.width = "500px", echo=FALSE, fig.align = "center", fig.cap = "Ridge Regression"}
+knitr::include_graphics("../images/ridge-scatterplot.png")
+```
+
 ## Model Results: Coefficients
 
 ```{r, results='asis'}

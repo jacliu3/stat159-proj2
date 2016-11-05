@@ -34,7 +34,7 @@ To compare the models, the mean-squared error for each are displayed in Table 2.
 error.table <- data.frame(MSE=c(mean(ols.sum$residuals^2), ridge.error,
                                 lasso.error, pcr.error, plsr.error))
 rownames(error.table) <- c("ols", "ridge", "lasso", "pcr", "plsr")
-xtable(error.table, caption = "Mean-squared error of all regression models")
+xtable(error.table, digits = 4, caption = "Mean-squared error of all regression models")
 ```
 
 ---

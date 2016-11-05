@@ -1,32 +1,45 @@
 #variables
 DATAURL = http://www-bcf.usc.edu/~gareth/ISL/Credit.csv
-AD = data/Credit.csv
+CSV = data/Credit.csv
 CS = code/scripts/
-CF = code/functions/
-CT = code/tests/
 PAPER = abstract.Rmd introduction.Rmd data.Rmd methods.Rmd analysis.Rmd results.Rmd conclusions.Rmd
 
 #targets
-.PHONY: all data eda tests ols ridge lasso pcr plsr regressions report slides clean deep-clean skeleton session
+.PHONY: all data eda ols ridge lasso pcr plsr regressions report slides clean deep-clean skeleton session paper
 
 all: eda regressions report
 	Rscript $(CS)session-info-script.R
 
-data:
-	curl $(DATAURL) --output $(AD)
+data: 
+	curl $(DATAURL) --output $(CSV)
 
-eda: $(CS)eda-script.R $(AD)
+eda: $(CS)eda-script.R data
 	Rscript $<
 
-regressions: $(CS)regression-script.R $(AD)
-	Rscript $<
+ols: data $(CS)olsregression-script.R
+	Rscript $(CS)olsregression-script.R
 
-tests: code/test-that.R $(CF)regression-functions.R $(CT)test-regression.R
-	Rscript $<
+ridge: data $(CS)ridgeregression-script.R
+	Rscript $(CS)ridgeregression-script.R
 
-report: regressions eda $(CF)regression-functions.R
+lasso: data $(CS)lassoregression-script.R
+	Rscript $(CS)lassoregression-script.R
+
+pcr: data $(CS)pcr-script.R
+	Rscript $(CS)pcr-script.R
+
+plsr: data $(CS)plsr-script.R
+	Rscript $(CS)plsr-script.R
+
+regressions: data ols ridge lasso pcr plsr 
+
+paper: report/sections/$(PAPER)
+
+report: regressions eda paper
 	Rscript -e "library(rmarkdown); render('report/report.Rmd')"
-	Rscript -e "library(rmarkdown); render('report/report.Rmd', output_format='html_document')"
+
+slides:
+	Rscript -e "library(rmarkdown); render('slides/slides.Rmd')"
 
 clean:
 	rm -f report/report.pdf
@@ -39,13 +52,8 @@ skeleton:
 	mkdir data code images report slides
 	touch data/README.md report/report.Rmd
 	cd code;\
-	mkdir functions scripts tests;\
-	touch README.md test-that.R;\
-	touch scripts/data-preprocessing.R scripts/eda-script.R scripts/session-info-script.R;\
-	touch functions/regression-functions.R tests/test-regression.R
+	mkdir scripts;\
+	touch README.md;\
 	mkdir report/sections;
 	cd report/sections;\
 	touch $(PAPER)
-
-
-

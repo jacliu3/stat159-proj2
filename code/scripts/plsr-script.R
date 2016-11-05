@@ -24,7 +24,7 @@ validationplot(plsr.cv.fit, val.type = "MSEP", main = "Scatter Plot for PLSR")
 dev.off()
 
 # Calculate MSE 
-predictions <- predict(plsr.cv.fit, newdata = x[test,], ncomp = 1:plsr.best.ncomp)
+predictions <- predict(plsr.cv.fit, newdata = x[test,], ncomp = plsr.best.ncomp)
 plsr.error <- mean((predictions - y[test])^2)
 
 # Fit full model

@@ -12,7 +12,6 @@ We fit the training data using cross-validation on the numbers of principal comp
 ###Partial Least square Regression (PLSR)
 Again, we fit the training data using cross-validation on the numbers of components. Figure 6 is the plot of the MSE and number of components during cross-validation. The minimum error was achieved by `r plsr.best.ncomp` components. This resulted in a MSE `r plsr.error` on the test set.
 
-
 ```{r, fig.height = 2.5, fig.align = 'center', fig.cap = "Ridge: MSE vs Shrinkage Param"}
 ridge.cv <- readPNG("../../images/ridge-scatterplot.png")
 grid.raster(ridge.cv)

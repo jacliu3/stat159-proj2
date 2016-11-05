@@ -9,7 +9,7 @@ library(pls)
 library(reshape2)
 library(png)
 library(grid)
-
+library(corrplot)
 
 sink("../../session-info.txt", append = TRUE)
 cat("Session Information\n\n")

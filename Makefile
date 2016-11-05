@@ -57,4 +57,4 @@ skeleton:
 	touch README.md;\
 	mkdir report/sections;
 	cd report/sections;\
-	touch $(PAPER)
+	touch abstract.Rmd introduction.Rmd data.Rmd methods.Rmd analysis.Rmd results.Rmd conclusions.Rmd

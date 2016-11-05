@@ -20,13 +20,10 @@ stat159-project2/
 	code/
 		README.md
 	  	...
-	  	functions/
-	  		...
 	  	scripts/
 	  		...
-	  	tests/
-	  		...
 	data/
+		README.md
 		...
 	images/
 		...
@@ -35,6 +32,10 @@ stat159-project2/
 		report.pdf
 		sections/
 			...
+	slides/
+		slides.Rmd
+		slides.html
+		...
 ```
 
 Inside the `code/` subdirectory, you can find all the R scripts used to perform our analysis.
@@ -44,6 +45,8 @@ The `data/` subdirectory contains our primary data set `Credit.csv`, R Data, and
 The `images` subdirectory contains all the graphs and plots we output during the analysis.
 
 The `report` subdirectory contains our report in .Rmd and .pdf format as well as individual sections of report.
+
+The `slides` subdirectory contains our slide presentation in .Rmd and .html format.
 
 ###Perform Analysis
 

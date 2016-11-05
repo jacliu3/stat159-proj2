@@ -36,8 +36,8 @@ lasso.fit <- glmnet(x, y, alpha = 0, intercept = FALSE, standardize = FALSE,
 
 # Output primary results to text file
 sink("data/lasso-results.txt")
-cat("Best Lambda:", best.lambda, "\n")
-cat("Test MSE:", error, "\n")
+cat("Best Lambda:", lasso.best.lambda, "\n")
+cat("Test MSE:", lasso.error, "\n")
 cat("Official coefficients", "\n")
 print(coef(lasso.fit))
 sink()

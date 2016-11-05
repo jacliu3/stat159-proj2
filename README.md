@@ -10,27 +10,31 @@ date: "Nov 4th, 2016"
 The file structure of this project is as follows:
 
 ```
-stat159-fall2016-project2/
-README.md
-Makefile
-LICENSE
-session-info.txt
-session.sh
-.gitignore
-code/
-scripts/
-...
-data/
-Credit.csv
-...
-images/
-...
-report/
-report.pdf
-report.Rmd
-sections/
-slides/
-...
+stat159-project2/
+	.gitignore
+	README.md
+	LICENSE
+	Makefile
+	session-info.txt
+	session.sh                    
+	code/
+		README.md
+	  	...
+	  	functions/
+	  		...
+	  	scripts/
+	  		...
+	  	tests/
+	  		...
+	data/
+		...
+	images/
+		...
+	report/
+		report.Rmd
+		report.pdf
+		sections/
+			...
 ```
 
 Inside the `code/` subdirectory, you can find all the R scripts used to perform our analysis.

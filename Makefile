@@ -2,13 +2,11 @@
 DATAURL = http://www-bcf.usc.edu/~gareth/ISL/Credit.csv
 CSV = data/Credit.csv
 CS = code/scripts/
-PAPER = abstract.Rmd introduction.Rmd data.Rmd methods.Rmd analysis.Rmd results.Rmd conclusions.Rmd
 
 #targets
 .PHONY: all data eda ols ridge lasso pcr plsr regressions report slides clean deep-clean skeleton session paper
 
-all: eda regressions report
-	Rscript $(CS)session-info-script.R
+all: eda regressions report session
 
 data: 
 	curl $(DATAURL) --output $(CSV)
@@ -33,13 +31,16 @@ plsr: data $(CS)plsr-script.R
 
 regressions: data ols ridge lasso pcr plsr 
 
-paper: report/sections/$(PAPER)
+paper: report/sections/*.Rmd
 
 report: regressions eda paper
 	Rscript -e "library(rmarkdown); render('report/report.Rmd')"
 
 slides:
 	Rscript -e "library(rmarkdown); render('slides/slides.Rmd')"
+
+session:
+	bash session.sh
 
 clean:
 	rm -f report/report.pdf
